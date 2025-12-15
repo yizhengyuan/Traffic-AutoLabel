@@ -90,33 +90,51 @@ D1_dataset/
 
 ## 🚀 快速开始
 
-### 1. 安装依赖
+### 1. 创建虚拟环境（推荐）
+```bash
+# 创建虚拟环境
+python3 -m venv venv
+
+# 激活虚拟环境
+source venv/bin/activate   # macOS/Linux
+# venv\Scripts\activate    # Windows
+```
+
+### 2. 安装依赖
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. 配置 API Key
+### 3. 配置 API Key
 ```bash
 export ZAI_API_KEY="your_api_key_here"
 ```
 
-### 3. 运行标注
+### 4. 运行标注
 ```bash
-# 标注 D1 系列图片
+# 基础标注 - D1 系列图片
 python3 auto_labeling_universal.py --prefix D1
 
-# 标注 D2 系列图片（限制数量）
-python3 auto_labeling_universal.py --prefix D2 --limit 20
+# RAG 增强标注（交通标志细粒度分类）
+python3 auto_labeling_rag.py --prefix D1 --rag
+
+# 两阶段精细分类（推荐，最准确）
+python3 two_stage_classifier.py --test test_images/extracted_frames/D1_frame_0006.jpg --bbox "733,270,776,300"
 ```
 
-### 4. 生成可视化
+### 5. 生成可视化
 ```bash
 python3 visualize_universal.py --prefix D1
 ```
 
-### 5. 生成报告
+### 6. 生成报告
 ```bash
 python3 generate_report.py --prefix D1
+```
+
+### 7. 退出虚拟环境
+```bash
+deactivate
 ```
 
 ---
@@ -126,9 +144,12 @@ python3 generate_report.py --prefix D1
 | 文件 | 说明 |
 |------|------|
 | `auto_labeling_universal.py` | 通用标注脚本，支持任意前缀的图片 |
+| `auto_labeling_rag.py` | RAG 增强标注，交通标志细粒度分类（188 种标准标志） |
+| `two_stage_classifier.py` | 两阶段分类器（推荐），先识别类型再识别细节 |
 | `visualize_universal.py` | 通用可视化脚本 |
 | `generate_report.py` | 标注报告生成脚本 |
-| `batch_describe.py` | 图片描述脚本 |
+| `rag_sign_classifier.py` | RAG 向量库管理工具 |
+| `demo_rag_flow.py` | RAG 流程演示脚本 |
 
 ---
 
