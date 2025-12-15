@@ -1,12 +1,17 @@
-# Z.AI SDK (新版 GLM-4.6V API)
+# Z.AI SDK (GLM-4.6V API)
 zai-sdk>=0.0.4
 
-# 智谱 AI SDK (原版 API)  
-zhipuai>=2.0.0
-
-# 通用依赖
-python-dotenv>=1.0.0
-pillow>=10.0.0
-matplotlib>=3.7.0
+# 图像处理
+Pillow>=10.0.0
 opencv-python>=4.8.0
 numpy>=1.24.0
+
+# 通用
+python-dotenv>=1.0.0
+requests
+
+# RAG 向量检索
+chromadb>=0.4.0
+sentence-transformers>=2.2.0
+torch>=2.0.0
+torchvision>=0.15.0
