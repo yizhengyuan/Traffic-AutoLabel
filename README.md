@@ -32,6 +32,26 @@
 
 ---
 
+## 🔍 RAG 细粒度分类
+
+对于交通标志的细粒度分类，本项目采用 **RAG（检索增强生成）** 技术，实现对 188 种标准交通标志的精准识别。
+
+<p align="center">
+  <img src="GLM_Labeling_Manner_2.png" alt="RAG 细粒度分类流程" width="800">
+</p>
+
+### 核心流程
+1. **一阶段粗分类**：通过 GLM-4.6V 识别交通标志的大类（限速、禁止、警告、指示等）
+2. **二阶段精排**：根据大类从向量库中检索候选标志图片
+3. **多模态匹配**：将裁剪的标志区域与候选图片进行视觉对比
+4. **最终决策**：输出最匹配的标准标志名称
+
+### 支持的交通标志类型
+- 🔴 限速标志：`Speed_limit_50_km_h`, `Speed_limit_70_km_h` 等
+- 🟡 警告标志：`Road_works_ahead`, `Slippery_road_ahead` 等
+- 🔵 指示标志：`Direction_sign`, `Expressway_sign` 等
+- ⚫ 禁止标志：`No_entry`, `No_parking`, `No_stopping` 等
+
 ## 📊 检测类别
 
 | 类别 | 标签示例 | 颜色 |
