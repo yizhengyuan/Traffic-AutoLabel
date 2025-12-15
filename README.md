@@ -47,10 +47,10 @@
 4. **最终决策**：输出最匹配的标准标志名称
 
 ### 支持的交通标志类型
-- 🔴 限速标志：`Speed_limit_50_km_h`, `Speed_limit_70_km_h` 等
-- 🟡 警告标志：`Road_works_ahead`, `Slippery_road_ahead` 等
-- 🔵 指示标志：`Direction_sign`, `Expressway_sign` 等
-- ⚫ 禁止标志：`No_entry`, `No_parking`, `No_stopping` 等
+- **限速标志**：`Speed_limit_50_km_h`, `Speed_limit_70_km_h` 等
+- **警告标志**：`Road_works_ahead`, `Slippery_road_ahead` 等
+- **指示标志**：`Direction_sign`, `Expressway_sign` 等
+- **禁止标志**：`No_entry`, `No_parking`, `No_stopping` 等
 
 ## 📊 检测类别
 
