@@ -13,7 +13,7 @@
 ## 🔄 核心流程
 
 <p align="center">
-  <img src="GLM_Labeling_Manner.png" alt="GLM-4.6V 自动标注流程" width="800">
+  <img src="GLM_Labeling_Manner_1.png" alt="GLM-4.6V 自动标注流程" width="800">
 </p>
 
 ### 1️⃣ 数据准备 (Data Preparation)
