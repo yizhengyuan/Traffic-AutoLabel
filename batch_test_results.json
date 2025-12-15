@@ -1,0 +1,232 @@
+[
+  {
+    "image_name": "D6_frame_0005.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "1280 x 720 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        114,
+        116,
+        112
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "限速标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "显示最大允许速度"
+    },
+    "confidence": 98,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "D2_frame_0058.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "1280 x 544 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        106,
+        114,
+        108
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "禁止停车标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "禁止停车"
+    },
+    "confidence": 75,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "D6_frame_0011.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "1280 x 720 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        114,
+        111,
+        108
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "禁止通行标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "表示禁止通行"
+    },
+    "confidence": 76,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "DJI_20250518070732_0017_D_frame_0529.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "3840 x 2160 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        97,
+        99,
+        102
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "注意行人标志",
+      "sign_type": "警告标志",
+      "sign_color": "黄色",
+      "sign_shape": "三角形",
+      "sign_meaning": "警示有行人"
+    },
+    "confidence": 94,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "DJI_20250518070732_0017_D_frame_0501.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "3840 x 2160 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        100,
+        105,
+        98
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "注意行人标志",
+      "sign_type": "警告标志",
+      "sign_color": "黄色",
+      "sign_shape": "三角形",
+      "sign_meaning": "警示有行人"
+    },
+    "confidence": 85,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "DJI_20250518070732_0017_D_frame_0267.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "3840 x 2160 像素",
+      "color_mode": "RGB",
+      "dominant_color": "深色系",
+      "avg_rgb": [
+        87,
+        89,
+        85
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "注意信号灯标志",
+      "sign_type": "警告标志",
+      "sign_color": "黄色",
+      "sign_shape": "三角形",
+      "sign_meaning": "警示前方有信号灯"
+    },
+    "confidence": 76,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "D2_frame_0064.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "1280 x 544 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        88,
+        100,
+        108
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "注意儿童标志",
+      "sign_type": "警告标志",
+      "sign_color": "黄色",
+      "sign_shape": "三角形",
+      "sign_meaning": "警示有儿童"
+    },
+    "confidence": 82,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "DJI_20250518070732_0017_D_frame_0273.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "3840 x 2160 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        103,
+        105,
+        108
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "禁止停车标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "禁止停车"
+    },
+    "confidence": 94,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "D2_frame_0070.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "1280 x 544 像素",
+      "color_mode": "RGB",
+      "dominant_color": "混合色",
+      "avg_rgb": [
+        111,
+        121,
+        116
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "禁止停车标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "禁止停车"
+    },
+    "confidence": 87,
+    "note": "这是基于图片特征的模拟识别结果"
+  },
+  {
+    "image_name": "DJI_20250518070732_0017_D_frame_0515.jpg",
+    "status": "success",
+    "image_analysis": {
+      "dimensions": "3840 x 2160 像素",
+      "color_mode": "RGB",
+      "dominant_color": "深色系",
+      "avg_rgb": [
+        93,
+        95,
+        95
+      ]
+    },
+    "recognition_result": {
+      "sign_name": "禁止通行标志",
+      "sign_type": "禁令标志",
+      "sign_color": "红色",
+      "sign_shape": "圆形",
+      "sign_meaning": "表示禁止通行"
+    },
+    "confidence": 94,
+    "note": "这是基于图片特征的模拟识别结果"
+  }
+]
