@@ -20,49 +20,27 @@ from zai import ZaiClient
 
 
 # ============================================================================
-# 标准交通标志候选库
+# 标准交通标志候选库（动态加载 188 个香港道路标志）
 # ============================================================================
 
-# 限速标志
-SPEED_LIMIT_CANDIDATES = [
-    "speed_limit_20", "speed_limit_30", "speed_limit_40", "speed_limit_50",
-    "speed_limit_60", "speed_limit_70", "speed_limit_80", "speed_limit_100", "speed_limit_120"
-]
+SIGNS_DIR = Path("examples/signs/highres/png2560px")
 
-# 禁止标志
-PROHIBITION_CANDIDATES = [
-    "no_entry", "no_stopping", "no_parking", "no_overtaking",
-    "no_left_turn", "no_right_turn", "no_u_turn", "no_horn"
-]
+def load_sign_candidates():
+    """从标志图片目录动态加载所有标志名称"""
+    if not SIGNS_DIR.exists():
+        print(f"⚠️ 找不到标志目录: {SIGNS_DIR}")
+        return []
+    
+    candidates = []
+    for f in sorted(SIGNS_DIR.glob("*.png")):
+        # 使用原始文件名（去掉扩展名）
+        label = f.stem  # 例如: "Speed_limit_(in_km_h)"
+        candidates.append(label)
+    
+    return candidates
 
-# 警告标志
-WARNING_CANDIDATES = [
-    "road_works", "pedestrian_crossing", "children", "cyclists",
-    "bend_ahead", "crossroads", "slippery_road", "falling_rocks"
-]
-
-# 指示标志
-DIRECTION_CANDIDATES = [
-    "direction_sign", "expressway_sign", "street_sign", "exit_sign",
-    "one_way", "ahead_only", "turn_left", "turn_right", "keep_left", "keep_right"
-]
-
-# 信号灯
-TRAFFIC_LIGHT_CANDIDATES = [
-    "traffic_light", "traffic_light_red", "traffic_light_yellow", "traffic_light_green"
-]
-
-# 其他
-OTHER_SIGN_CANDIDATES = [
-    "stop", "give_way", "roundabout", "parking", "bus_stop"
-]
-
-# 所有候选
-ALL_SIGN_CANDIDATES = (
-    SPEED_LIMIT_CANDIDATES + PROHIBITION_CANDIDATES + 
-    WARNING_CANDIDATES + DIRECTION_CANDIDATES + 
-    TRAFFIC_LIGHT_CANDIDATES + OTHER_SIGN_CANDIDATES
-)
+# 加载所有候选标志
+ALL_SIGN_CANDIDATES = load_sign_candidates()
 
 
 # ============================================================================
@@ -163,18 +141,70 @@ def classify_sign_with_rag(client: ZaiClient, image_path: str, bbox: list) -> st
         choice = response.choices[0].message.content.strip()
         
         # 解析选择
+        base_label = "traffic_sign"
         try:
-            # 提取数字
             import re
             numbers = re.findall(r'\d+', choice)
             if numbers:
                 idx = int(numbers[0]) - 1
                 if 0 <= idx < len(ALL_SIGN_CANDIDATES):
-                    return ALL_SIGN_CANDIDATES[idx]
+                    base_label = ALL_SIGN_CANDIDATES[idx]
         except:
             pass
         
-        return "traffic_sign"
+        # ============================================================
+        # 二阶段精排：对通用标志进一步识别具体细节
+        # ============================================================
+        generic_signs = {
+            "Speed_limit_(in_km_h)": {
+                "question": "请识别这个限速标志上显示的具体数字（如 20, 30, 50, 70, 100）。只返回数字。",
+                "format": "Speed_limit_{}_km_h"
+            },
+            "Variable_speed_limit_(in_km_h)": {
+                "question": "请识别这个可变限速标志上显示的数字。只返回数字。",
+                "format": "Variable_speed_limit_{}_km_h"
+            },
+            "Distance_as_shown_to_hazard": {
+                "question": "请识别标志上显示的距离数字（单位：米）。只返回数字。",
+                "format": "Distance_{}_m_to_hazard"
+            },
+            "Maximum_height_as_shown_(in_metres)": {
+                "question": "请识别标志上显示的最大高度限制（单位：米）。只返回数字。",
+                "format": "Maximum_height_{}_m"
+            },
+            "Maximum_payload_as_shown_(in_tonnes)": {
+                "question": "请识别标志上显示的最大载重限制（单位：吨）。只返回数字。",
+                "format": "Maximum_payload_{}_tonnes"
+            }
+        }
+        
+        if base_label in generic_signs:
+            detail_info = generic_signs[base_label]
+            print(f"    🔎 二阶段精排：识别具体数字...")
+            
+            detail_response = client.chat.completions.create(
+                model="glm-4.6v",
+                messages=[{
+                    "role": "user",
+                    "content": [
+                        {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{img_data}"}},
+                        {"type": "text", "text": detail_info["question"]}
+                    ]
+                }]
+            )
+            
+            detail_text = detail_response.choices[0].message.content.strip()
+            
+            # 提取数字
+            import re
+            detail_numbers = re.findall(r'\d+', detail_text)
+            if detail_numbers:
+                specific_value = detail_numbers[0]
+                refined_label = detail_info["format"].format(specific_value)
+                print(f"    → 识别到数字: {specific_value}, 最终标签: {refined_label}")
+                return refined_label
+        
+        return base_label
         
     except Exception as e:
         print(f"    ⚠️ RAG 分类失败: {e}")
