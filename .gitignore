@@ -18,3 +18,5 @@ traffic_sign_data/
 # 环境文件
 .env
 venv/
+temp_frames/
+.chromadb/
