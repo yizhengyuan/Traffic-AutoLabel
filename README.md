@@ -58,7 +58,7 @@
 |------|---------|------|
 | 🔴 行人 | `pedestrian`, `crowd` | 红色 |
 | 🟢 车辆 | `vehicle`, `vehicle_braking`, `vehicle_turning_left`, `vehicle_turning_right`, `vehicle_double_flash` | 绿色 |
-| 🔵 交通标志 | `Speed_limit_70_km_h`, `Direction_sign`, `No_entry`, `Warning_sign` | 蓝色 |
+| 🔵 交通标志 | `Speed_limit_50_km_h`, `No_stopping`, `Direction_sign`, `Warning_sign`, `Give_way`, `Road_works_ahead` 等 **188 种** | 蓝色 |
 | 🟠 施工标志 | `traffic_cone`, `construction_barrier` | 橙色 |
 
 ### 🚗 车辆行为标签说明
@@ -71,6 +71,17 @@
 - `vehicle_double_flash` - 双闪（危险警告灯）
 
 > 💡 **扩展能力**：如需区分车辆基础类型，可通过修改 prompt 增加细分标签（如 `car`, `truck`, `bus`, `motorcycle`, `bicycle`, `taxi`, `suv` 等），实现更丰富的车辆分类。
+
+### 🚦 交通标志细粒度识别
+
+系统支持对 **188 种交通标志**的细粒度识别，标志库来源于[香港运输署官网](https://www.td.gov.hk/tc/road_safety/road_users_code/index/chapter_7_702_702.html)。
+
+主要类别包括：
+- **限速标志**: `Speed_limit_50_km_h`, `Speed_limit_70_km_h`, `Variable_speed_limit` 等
+- **禁止标志**: `No_entry`, `No_parking`, `No_stopping`, `No_overtaking` 等
+- **警告标志**: `Road_works_ahead`, `Slippery_road_ahead`, `Children_ahead` 等
+- **指示标志**: `Direction_sign`, `Expressway_sign`, `One_way_traffic` 等
+- **倒计时牌**: `100m_Countdown_markers`, `200m_Countdown_markers` 等
 
 ---
 
