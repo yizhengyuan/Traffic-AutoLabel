@@ -162,27 +162,38 @@ class ParallelProcessor:
     def _process_single(self, image_path: str) -> tuple:
         """
         处理单张图片（在工作线程中执行）
-        
+
         Returns:
             (detections, error)
         """
+        image_name = Path(image_path).name
+
         try:
             # 每个线程创建独立的检测器
             detector = ObjectDetector(api_key=self.api_key)
             detections = detector.detect(image_path)
-            
+
             # RAG 细粒度分类
             if self.use_rag and detections:
                 classifier = SignClassifier(api_key=self.api_key)
-                
+
                 for det in detections:
                     if det["category"] == "traffic_sign" and det["label"] in ["traffic_sign", "sign"]:
                         det["label"] = classifier.classify(image_path, det["bbox"])
-            
+
             return detections, None
-            
+
+        except FileNotFoundError as e:
+            self.logger.error(f"[{image_name}] File not found: {e}")
+            return [], f"FileNotFoundError: {e}"
+
+        except ValueError as e:
+            self.logger.error(f"[{image_name}] Invalid input: {e}")
+            return [], f"ValueError: {e}"
+
         except Exception as e:
-            return [], str(e)
+            self.logger.error(f"[{image_name}] Unexpected error: {type(e).__name__}: {e}")
+            return [], f"{type(e).__name__}: {e}"
     
     def _save_result(
         self, 

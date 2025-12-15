@@ -144,25 +144,33 @@ class ObjectDetector:
                 timeout=timeout
             )
         
+        image_name = os.path.basename(image_path)
+
         try:
             response = retry_api_call(
                 call_api,
                 max_retries=self.max_retries,
                 delay=self.config.retry_delay,
-                on_retry=lambda a, e: self.logger.warning(f"Retry {a}: {e}")
+                on_retry=lambda a, e: self.logger.warning(
+                    f"[{image_name}] Retry {a}/{self.max_retries}: {type(e).__name__}: {e}"
+                )
             )
-            
+
             result_text = response.choices[0].message.content.strip()
             detections = parse_llm_json(result_text)
-            
+
             if not detections:
+                self.logger.debug(f"[{image_name}] No objects detected")
                 return []
-            
+
             return self._post_process(detections, width, height)
-            
+
         except Exception as e:
-            self.logger.error(f"Detection failed for {image_path}: {e}")
-            return []
+            self.logger.error(
+                f"[{image_name}] Detection failed after {self.max_retries} retries: "
+                f"{type(e).__name__}: {e}"
+            )
+            raise
     
     def _post_process(
         self, 
