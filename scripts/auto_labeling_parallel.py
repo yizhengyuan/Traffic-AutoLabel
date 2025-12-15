@@ -215,14 +215,23 @@ def process_single_image(args_tuple):
         
         prompt = """请检测图片中的以下4类物体，返回JSON格式。
 
-## 检测类别（使用英文标签）：
+## 检测类别与细粒度要求：
 1. 行人：pedestrian, cyclist, child, crowd
 2. 车辆：car, truck, bus, motorcycle, bicycle, van, taxi（不要标注第一人称）
+   - 【重要】请观察尾灯状态（细粒度标注）：
+   - 如果尾灯显著高亮（红色刹车灯亮起），label 记为 "car_braking"
+   - 如果左侧灯比右侧亮或呈黄色/橙色，label 记为 "car_turn_left"
+   - 如果右侧灯比左侧亮或呈黄色/橙色，label 记为 "car_turn_right"
+   - 如果双侧黄色灯同时亮起（双闪），label 记为 "car_hazard_lights"
+   - 正常行驶或看不清尾灯状态，保持 "car"
 3. 交通标志：traffic_sign
 4. 施工标志：traffic_cone, construction_barrier
 
-## 返回格式：
-[{"label": "car", "bbox_2d": [xmin, ymin, xmax, ymax]}]
+## 返回格式示例：
+[
+  {"label": "car_braking", "bbox_2d": [100, 200, 300, 400]},
+  {"label": "traffic_sign", "bbox_2d": [50, 50, 80, 80]}
+]
 
 如果没有目标，返回 []
 只返回JSON数组！"""
