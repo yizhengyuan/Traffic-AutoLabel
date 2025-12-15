@@ -2,6 +2,10 @@
 
 > 基于大模型的自动化图像标注流水线，实现交通场景中行人、车辆、交通标志的智能检测与标注。
 
+<p align="center">
+  <img src="GLM_Labeling_Manner.png" alt="GLM-4.6V 自动标注流程" width="800">
+</p>
+
 ---
 
 ## 🎯 项目简介
