@@ -18,7 +18,7 @@ from zai import ZaiClient
 
 
 # ============================================================================
-# 标志类型定义
+# 标志类型定义（含视觉特征描述）
 # ============================================================================
 
 SIGN_TYPES = {
@@ -26,26 +26,36 @@ SIGN_TYPES = {
         "name": "speed_limit",
         "description": "限速标志（红圈白底，中间有数字）",
         "requires_detail": True,
-        "detail_prompt": "请识别这个限速标志上显示的数字。只返回数字，如 20、30、50、70、100。",
+        "detail_prompt": """请识别这个限速标志上显示的具体数字。
+
+视觉特征：
+- 形状：圆形
+- 边框：红色圆圈
+- 底色：白色
+- 内容：黑色数字（通常是 20、30、40、50、60、70、80、100、110、120）
+
+请仔细观察数字，只返回数字本身，如 20、30、50、70、100。""",
         "label_format": "Speed_limit_{}_km_h"
     },
     "2": {
         "name": "prohibition",
         "description": "禁止标志",
         "requires_detail": True,
-        "detail_prompt": """这是一个禁止类标志。请判断具体是哪种：
-1. no_stopping 禁止停车
-2. no_parking 禁止泊车
-3. no_entry 禁止驶入
-4. no_overtaking 禁止超车
-5. no_left_turn 禁止左转
-6. no_right_turn 禁止右转
-7. no_u_turn 禁止掉头
+        "detail_prompt": """请判断这是哪种禁止标志。
+
+视觉特征参考：
+1. no_stopping 禁止停车 - 红圈蓝底，红色交叉❌
+2. no_parking 禁止泊车 - 红圈蓝底，红色单斜杠/
+3. no_entry 禁止驶入 - 红色圆形，白色横杠-
+4. no_overtaking 禁止超车 - 红圈白底，两辆车图案（一红一黑）
+5. no_left_turn 禁止左转 - 红圈白底，左转箭头被划掉
+6. no_right_turn 禁止右转 - 红圈白底，右转箭头被划掉
+7. no_u_turn 禁止掉头 - 红圈白底，U形箭头被划掉
 8. other 其他禁止
 
 只返回数字（1-8）。""",
         "label_map": {
-            "1": "No_stopping",
+            "1": "No_stopping_at_any_time",
             "2": "No_parking",
             "3": "No_entry_for_all_vehicles",
             "4": "No_overtaking",
@@ -59,14 +69,16 @@ SIGN_TYPES = {
         "name": "warning",
         "description": "警告标志",
         "requires_detail": True,
-        "detail_prompt": """这是一个警告类标志。请判断具体是哪种：
-1. road_works 道路施工
-2. pedestrian_crossing 人行横道
-3. children 注意儿童
-4. cyclists 注意自行车
-5. bend_ahead 前方弯道
-6. cross_roads 前方十字路口
-7. slippery_road 路滑
+        "detail_prompt": """请判断这是哪种警告标志。
+
+视觉特征参考：
+1. road_works 道路施工 - 红边黄底三角形，有人在施工/铲子图案
+2. pedestrian_crossing 人行横道 - 蓝底方形，有行人走斑马线图案
+3. children 注意儿童 - 红边黄底三角形，有儿童跑步图案
+4. cyclists 注意自行车 - 红边黄底三角形，有自行车图案
+5. bend_ahead 前方弯道 - 红边黄底三角形，有弯曲箭头
+6. cross_roads 前方路口 - 红边黄底三角形，有十字交叉图案
+7. slippery_road 路滑 - 红边黄底三角形，有打滑车辆图案
 8. other 其他警告
 
 只返回数字（1-8）。""",
@@ -85,25 +97,27 @@ SIGN_TYPES = {
         "name": "direction",
         "description": "指示/方向标志",
         "requires_detail": True,
-        "detail_prompt": """这是一个指示或方向标志。请判断具体是哪种：
-1. direction_sign 方向指示牌
-2. expressway_sign 高速公路标志
-3. one_way 单行道
-4. ahead_only 直行
-5. turn_left 左转
-6. turn_right 右转
-7. keep_left 靠左
+        "detail_prompt": """请判断这是哪种指示或方向标志。
+
+视觉特征参考：
+1. direction_sign 方向指示牌 - 绿底白字，显示地名和箭头
+2. expressway_sign 高速公路标志 - 绿底白字，带高速公路编号
+3. countdown_marker 倒计时距离牌 - 绿底白条，有 100m/200m/300m 斜条
+4. one_way 单行道 - 蓝底白色箭头，只指一个方向
+5. ahead_only 直行 - 蓝色圆形，白色向上箭头
+6. turn_left 左转 - 蓝色圆形，白色左转箭头
+7. turn_right 右转 - 蓝色圆形，白色右转箭头
 8. other 其他指示
 
 只返回数字（1-8）。""",
         "label_map": {
             "1": "Direction_sign",
             "2": "Expressway_sign",
-            "3": "One_way_traffic",
-            "4": "Ahead_only",
-            "5": "Turn_left",
-            "6": "Turn_right",
-            "7": "Keep_left",
+            "3": "100m_Countdown_markers_used_to_indicate_the_distance_to_an_exit_on_the_left_side_of_a_road",
+            "4": "One_way_traffic",
+            "5": "Ahead_only",
+            "6": "Turn_left",
+            "7": "Turn_right",
             "8": "Direction_other"
         }
     },
