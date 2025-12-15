@@ -56,10 +56,21 @@
 
 | 类别 | 标签示例 | 颜色 |
 |------|---------|------|
-| 🔴 行人 | `pedestrian`, `cyclist`, `crowd` | 红色 |
-| 🟢 车辆 | `car`, `truck`, `bus`, `taxi`, `van`, `suv`, `motorcycle` | 绿色 |
-| 🔵 交通标志 | `speed_limit_70`, `direction_sign`, `no_entry`, `traffic_light` | 蓝色 |
+| 🔴 行人 | `pedestrian`, `crowd` | 红色 |
+| 🟢 车辆 | `vehicle`, `vehicle_braking`, `vehicle_turning_left`, `vehicle_turning_right`, `vehicle_double_flash` | 绿色 |
+| 🔵 交通标志 | `Speed_limit_70_km_h`, `Direction_sign`, `No_entry`, `Warning_sign` | 蓝色 |
 | 🟠 施工标志 | `traffic_cone`, `construction_barrier` | 橙色 |
+
+### 🚗 车辆行为标签说明
+
+当前系统对车辆采用**统一类型 + 行为状态**的标签设计：
+- `vehicle` - 正常行驶
+- `vehicle_braking` - 刹车（刹车灯亮起）
+- `vehicle_turning_left` - 左转（转向灯/车身姿态）
+- `vehicle_turning_right` - 右转（转向灯/车身姿态）
+- `vehicle_double_flash` - 双闪（危险警告灯）
+
+> 💡 **扩展能力**：如需区分车辆基础类型，可通过修改 prompt 增加细分标签（如 `car`, `truck`, `bus`, `motorcycle`, `bicycle`, `taxi`, `suv` 等），实现更丰富的车辆分类。
 
 ---
 
