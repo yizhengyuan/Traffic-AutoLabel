@@ -10,8 +10,17 @@ numpy>=1.24.0
 python-dotenv>=1.0.0
 requests
 
+# CLI
+click>=8.1.0
+
 # RAG 向量检索
 chromadb>=0.4.0
 sentence-transformers>=2.2.0
 torch>=2.0.0
 torchvision>=0.15.0
+
+# Dashboard (可选)
+fastapi>=0.100.0
+uvicorn>=0.20.0
+websockets>=11.0
+aiofiles>=23.0.0

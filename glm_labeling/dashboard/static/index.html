@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLM Labeling Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🏷️ <span>GLM</span> Labeling Dashboard</h1>
+            <span class="status-badge" id="connection-status">连接中...</span>
+        </header>
+
+        <div class="grid">
+            <!-- 创建任务 (极简版) -->
+            <div class="card" id="task-creation-card">
+                <div class="task-toolbar">
+                    <!-- 1. 核心输入区 -->
+                    <div class="input-group main-inputs">
+                        <!-- 视频模式输入 -->
+                        <div id="video-inputs-container" class="input-wrapper video-select">
+                            <span class="input-icon">🎬</span>
+                            <select id="video-name" class="clean-input" required title="选择视频源">
+                                <option value="">选择视频...</option>
+                            </select>
+                        </div>
+
+                        <!-- 输出名称 (通用) -->
+                        <div class="input-wrapper output-name">
+                            <span class="input-icon">📝</span>
+                            <input type="text" id="output-name" class="clean-input" placeholder="项目名称 (输出ID)" required>
+                        </div>
+                    </div>
+
+                    <!-- 2. 操作区 -->
+                    <div class="action-group">
+                        <button id="start-btn" class="btn btn-primary compact-btn" onclick="handleStart()">
+                            🚀 开始
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 隐藏的设置面板已移除 -->
+                
+                <div class="task-list" id="task-list">
+                    <div class="empty-state">暂无任务</div>
+                </div>
+            </div>
+
+            <!-- 实时统计 -->
+            <div class="card">
+                <div class="card-title">
+                    📊 标签统计
+                    <span class="text-sm text-secondary" id="total-labels-count" style="font-weight: normal; margin-left: 8px;"></span>
+                </div>
+                
+                <!-- 细分标签列表 (直接展示，移除大类统计) -->
+                <div class="labels-container">
+                    <div class="labels-list" id="labels-list">
+                        <div class="empty-state-small">等待数据...</div>
+                    </div>
+                </div>
+                
+                <div class="progress-section">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progress-text">等待任务...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid">
+            <!-- 当前帧预览 -->
+            <div class="card">
+                <div class="card-title">📸 当前帧预览</div>
+                <div class="preview-container" id="preview">
+                    <span class="preview-placeholder">等待处理...</span>
+                </div>
+                <div class="frame-info" id="frame-info"></div>
+            </div>
+
+            <!-- 问题列表 -->
+            <div class="card">
+                <div class="card-title">
+                    ⚠️ 问题列表 
+                    <span class="badge" id="issues-count">0</span>
+                </div>
+                <div class="issues-list" id="issues-list">
+                    <div class="empty-state">暂无问题</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 处理日志 -->
+        <div class="card">
+            <div class="card-title">
+                📜 处理日志
+                <button class="btn-small" onclick="clearLogs()">清空</button>
+            </div>
+            <div class="log-container" id="log-container"></div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
+
