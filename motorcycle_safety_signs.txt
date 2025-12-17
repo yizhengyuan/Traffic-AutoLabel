@@ -1,0 +1,284 @@
+摩托车安全相关交通标志分类
+Motorcycle Safety Related Traffic Signs Classification
+=========================================================
+
+【一、直接与摩托车相关】(3个)
+------------------------------------------------------
+1. No_motor_cycles_or_motor_tricycles                    # 禁止摩托车或机动三轮车
+2. No_motor_vehicles_except_motor_cyclists_and_motor_tricycles  # 禁止机动车（摩托车除外）
+3. Parking_place_for_motor_cycles_only                   # 摩托车专用停车位
+
+
+【二、速度控制类】(6个) - 摩托车制动距离长，速度控制至关重要
+------------------------------------------------------
+4. Speed_limit_(in_km_h)                                 # 速度限制
+5. Variable_speed_limit_(in_km_h)                        # 可变速度限制
+6. Reduce_speed_now                                      # 立即减速
+7. Keep_in_low_gear                                      # 保持低档
+8. Use_low_gear                                          # 使用低档
+9. Use_low_gear_for_distance_shown                       # 在所示距离内使用低档
+
+
+【三、路面状况警告类】(8个) - 对两轮车辆特别危险
+------------------------------------------------------
+10. Slippery_road_ahead                                  # 前方路滑 ⚠️
+11. Loose_chippings_ahead                                # 前方碎石路面 ⚠️
+12. Uneven_road_surface_ahead                            # 前方路面不平 ⚠️
+13. Road_hump_ahead                                      # 前方减速带
+14. Ramp_or_sudden_change_of_road_level_ahead            # 前方坡道/路面突变
+15. Ramp_or_sudden_change_of_road_level                  # 坡道/路面突变
+16. Risk_of_falling_or_fallen_rocks_ahead                # 前方落石风险
+17. Road_works_ahead                                     # 前方道路施工
+
+
+【四、弯道与坡度类】(6个) - 摩托车过弯需特别谨慎
+------------------------------------------------------
+18. Bend_to_left_ahead                                   # 前方左弯
+19. Double_bend_ahead_first_to_right                     # 前方连续弯道
+20. Sharp_deviation_of_route_to_left                     # 路线急转
+21. Steep_hill_downwards_ahead                           # 前方陡坡下坡
+22. Steep_hill_upwards_ahead                             # 前方陡坡上坡
+23. Road_narrows_on_both_sides_ahead                     # 前方道路两侧变窄
+
+
+【五、禁止与限制类】(10个) - 核心交通规则
+------------------------------------------------------
+24. No_overtaking                                        # 禁止超车
+25. No_entry_for_all_vehicles                            # 禁止所有车辆进入
+26. No_entry_for_vehicles                                # 禁止车辆进入
+27. No_motor_vehicles                                    # 禁止机动车
+28. No_stopping_at_any_time                              # 禁止随时停车
+29. No_stopping                                          # 禁止停车
+30. One_way_traffic                                      # 单向交通
+31. One_way_road_ahead                                   # 前方单向道路
+32. Ahead_only                                           # 只准直行
+33. Keep_right_(keep_left_if_symbol_reversed)            # 靠右行驶
+
+
+【六、让行与停车类】(5个) - 避免碰撞的关键
+------------------------------------------------------
+34. Stop_and_give_way                                    # 停车让行
+35. Give_way_to_traffic_on_major_road                    # 让主路车辆先行
+36. Distance_to__Stop__line                              # 距停车线距离
+37. Distance_to__Give_way__line                          # 距让行线距离
+38. Stop_or_give_way_ahead_(with_distance_to_line_ahead_given_below)  # 前方停/让行
+
+
+【七、路口与合流类】(8个) - 事故高发区域
+------------------------------------------------------
+39. Cross_roads_ahead                                    # 前方十字路口
+40. T-junction_ahead                                     # 前方T型路口
+41. Side_road_to_left_ahead                              # 前方左侧支路
+42. Staggered_junction_ahead                             # 前方交错路口
+43. Traffic_merging_from_left                            # 左侧车辆汇入
+44. Merging_into_main_traffic_on_left                    # 汇入左侧主车流
+45. Two-way_traffic_ahead                                # 前方双向交通
+46. Two-way_traffic_across_a_one-way_road_ahead          # 单向道路上的双向交通
+
+
+【八、信号灯与执法类】(6个)
+------------------------------------------------------
+47. Traffic_lights_ahead                                 # 前方交通灯
+48. Traffic_signals_ahead                                # 前方交通信号
+49. Red_light_camera_control_zone                        # 红灯摄像头区域
+50. Red_light_speed_camera_ahead                         # 前方测速摄像头
+51. Prepare_to_stop_if_signalled_to_do_so                # 收到信号准备停车
+52. Vehicles_must_stop_at_the_sign_(sign_used_by_police) # 警察指示停车
+
+
+【九、弱势道路使用者警告类】(9个) - 避免撞击行人/骑手
+------------------------------------------------------
+53. Pedestrian_crossing_ahead                            # 前方人行横道
+54. Pedestrians_Ahead                                    # 前方有行人
+55. Pedestrian_on_or_crossing_road_ahead                 # 行人横穿道路
+56. Children_ahead                                       # 前方有儿童
+57. School_ahead                                         # 前方有学校
+58. Playground_ahead                                     # 前方有游乐场
+59. Cyclists_ahead                                       # 前方有骑车者
+60. Disabled_persons_ahead                               # 前方有残障人士
+61. Visually_impaired_persons_ahead                      # 前方有视障人士
+
+
+【十、事故黑点与天气类】(3个)
+------------------------------------------------------
+62. Traffic_Accident_blackspot_ahead                     # 前方交通事故黑点 ⚠️
+63. Pedestrian_Accident_blackspot_ahead                  # 前方行人事故黑点 ⚠️
+64. Fog_or_mist_ahead                                    # 前方有雾
+
+
+【十一、高度/重量限制类】(5个) - 与摩托车关系较小但保留
+------------------------------------------------------
+65. Restricted_headroom_ahead                            # 前方限高
+66. No_vehicles_over_height_shown_(including_load)       # 车辆限高
+67. No_vehicles_over_width_shown_(including_load)        # 车辆限宽
+68. No_vehicles_over_gross_vehicle_weight_shown_(including_load)  # 车辆限重
+69. No_vehicles_over_axle_weight_shown_(including_load)  # 轴重限制
+
+
+=========================================================
+【摩托车安全核心标志统计】: 69 个
+=========================================================
+
+
+=========================================================
+【OTHER 类 - 导航/方向/其他类标志】(119个)
+=========================================================
+
+以下标志与摩托车安全关系不大，归为 "other" 类：
+
+--- 导航/方向指示类 ---
+- Direction_sign
+- Direction_sign_for_roundabout
+- Direction_to_Mass_Transit_Railway_(MTR)_Station
+- Direction_to_vehicular_ferry_pier
+- Street_direction_sign
+- Street_direction_sign_with_numbers
+- Get_in_lane
+
+--- 倒计时标志 ---
+- 100m_Countdown_markers_used_to_indicate_the_distance_to_an_exit_on_the_left_side_of_a_road
+- 200m_Countdown_markers_used_to_indicate_the_distance_to_an_exit_on_the_left_side_of_a_road
+- 300m_Countdown_markers_used_to_indicate_the_distance_to_an_exit_on_the_left_side_of_a_road
+
+--- 公交车道类 ---
+- Bus_lane_(Franchised_buses)_on_major_road_ahead
+- Bus_lane_ahead_(Franchised_buses)
+- Bus_lane_for_franchised_buses_only
+- Contra-flow_bus_lane_for_franchised_buses_only
+- End_of_bus_lane
+- Left_lane_shows_bus_lane_for_franchised_buses_only_during_the_time_and_date_shown
+- No_buses_and_coaches
+- Parking_place_for_buses_and_coaches_only
+
+--- 轻轨/电车类 ---
+- Light_rail_vehicle_lane_or_tram_lane_ahead
+- Light_rail_vehicle_lane_or_tram_lane_on_major_road_ahead
+- Light_rail_vehicles_and_trams_only
+- Light_rail_vehicles_or_trams_ahead
+- End_of_rail_only_lane_for_light_rail_vehicles
+
+--- 自行车类 ---
+- Bicycle_tricycle_route._No_motor_vehicles
+- Cycleway_ahead_(cyclists_on_or_crossing_road_ahead)
+- Cycling_restriction_–_cyclists_must_dismount_and_push_their_cycles
+- Cyclists_must_dismount_and_use_crossing_to_cross_the_road
+- Cyclists_to_keep_left
+- Cyclists_to_walk_on_steep_road
+- End_of_cycling_restriction
+- No_bicycles
+- Parking_place_for_pedal_cycles_only
+- Segregated_pedestrian_and_bicycle_tricycle_route._No_motor_vehicles
+
+--- 行人专用类 ---
+- No_pedestrians
+- No_pedestrians,_pedestrian_controlled_vehicles,_bicycles_and_tricycles
+- No_pedestrians,_rickshaws_and_handcarts
+- Pedestrian_priority_zone
+- Temporary_route_for_pedestrians
+- Temporary_route_for_pedestrians_(both_directions)
+- Temporary_closure_of_pedestrian_crossing
+- Warning_to_pedestrians_crossing_road_with_bus_lane
+
+--- 货车/商用车类 ---
+- No_goods_vehicles
+- Parking_place_for_goods_vehicles_only
+- No_vehicles_carrying_dangerous_goods_of_specified_categories
+- Indicating_the_categories_of_dangerous_goods
+
+--- 停车场类（非摩托车）---
+- Parking_place_for_vehicles_other_than_medium_and_heavy_goods_vehicles,_buses,_coaches,_motor_cycles_and_pedal_cycles
+- No_parking
+
+--- 小巴类 ---
+- No_public_light_buses
+- No_stopping_for_public_light_buses_between_7AM-12AM
+- End_of_public_light_buses__no_stopping__restriction
+
+--- 高速公路类 ---
+- Start_and_continuation_of_an_expressway
+- End_of_an_expressway
+- Hard_shoulder_–_do_not_use_except_in_an_emergency
+
+--- 时间/日期/补充牌类 ---
+- Day_plate
+- Time_plate
+- Distance_as_shown_to_hazard
+- Length_over_which_the_prohibition_or_hazard_exists
+- Direction_in_which_the_prohibition_or_restriction_applies
+- Prohibition_or_restriction_applies_in_both_directions
+- Plate_describing_the_hazard_(wording_maybe_varied)
+- Plate_used_to_state_the_safe_height
+
+--- 豁免/例外牌类 ---
+- Prohibitation_does_not_apply_to_vehicles_gaining_access_to_premises_adjacent_to_the_road
+- Prohibitation_does_not_apply_to_vehicles_holding_relevant_licenses
+- Prohibitation_or_mandatory_order_applies_to_vehicles_over_the_gross_vehicle_weight_shown
+- Prohibitation_or_mandatory_order_applies_to_vehicles_over_the_length_shown
+- Prohibitation_or_mandatory_order_does_not_apply_to_vehicle_classes_and_time_shown
+- Prohibitation_or_mandatory_order_does_not_apply_to_vehicle_classes_shown
+- Prohibition_or_mandatory_order_applies_to_vehicle_class_shown
+- Restriction_does_not_apply_to_vehicle_classes_shown_to_pick_up_or_drop_off_passengers_(wording_may_be_varied_to_loading_unloading_goods)
+- Vehicles_prohibited_as_indicated_by_supplementary_plate
+
+--- 临时/施工类 ---
+- End_of_road_works
+- End_of_the_prohibition,_restriction_or_warning
+- For_use_by_police_at_accident_site
+- Left_lane_only_ahead_(Red_bar_indicates_that_lanes_are_closed)
+- Left_lane_only_ahead_on_two-way_road_(Red_bar_indicates_that_lanes_are_closed)
+- Manually_operated_ʻStop_Goʼ_sign_ahead
+- Manually_operated_temporary_ʻGoʼ_sign
+- Manually_operated_temporary_ʻStopʼ_sign
+- Right_lane_closed_ahead_(Red_bar_indicates_that_lanes_are_closed)
+- Road_ahead_closed_to_vehicles
+- Road_closed_to_vehicles
+- Temporary_closure_of_lane_or_road
+- Temporary_routes_for_vehicles
+- Temporary_sharp_deviation_to_left
+- Used_to_indicate_line_painting_(wording_may_be_varied_to_suit_nature_of_road_work)
+- Used_with_temporary_traffic_signals._Vehicles_must_not_proceed_beyond_the_sign_when_red_light_shows
+- Warn_of_road_surfacing_works_(wording_may_be_varied_to_suit_specific_hazard)
+
+--- 其他 ---
+- Cattle_ahead
+- Census_point
+- Divert_to_another_carriageway_to_right_ahead
+- Dual_carriageway_ahead
+- Dual_carriageway_ends_ahead
+- End_of__no_stopping__restriction
+- Horses_ahead
+- Level_crossing_with_barrier_ahead
+- Low-flying_aircraft_or_noise_ahead
+- No_exit_for_vehicles
+- No_learner_drivers
+- No_stopping_between_7AM-12AM
+- No_stopping_between_7AM-7PM
+- No_stopping_between_8-10AM_and_5-7PM
+- No_through_road_on_left
+- No_use_of_horn
+- No_vehicles_or_combinations_of_vehicles_over_length_shown_(including_load)
+- Overhead_electric_cable_ahead
+- Passing_place
+- Quay-side_or_river_bank_ahead
+- Road_narrows_on_left_ahead
+- Sign_at_start_of_single_track_road
+- Single_file_traffic_ahead
+- Single_file_traffic_ahead_(wording_may_be_varied_to__Single_track_road_)
+- Slow_(Sign_used_by_police_in_emergency)
+- Start_of_dual_carriageway_ahead
+- Stop_at__Census_point_
+- Vehicles_must_stop_at_the_sign_(sign_used_by_school_crossing_patrol)
+- Vehicles_must_use_the_left_most_lane_except_when_overtaking
+- Vehicles_must_use_the_right_most_lane_except_when_overtaking
+- Way_in_for_vehicles
+- Way_out_for_vehicles
+
+
+=========================================================
+【总结 SUMMARY】
+=========================================================
+摩托车安全相关标志 (Motorcycle Safety): 69 个
+其他类标志 (Other):                    119 个
+总计 (Total):                          188 个
+=========================================================
+

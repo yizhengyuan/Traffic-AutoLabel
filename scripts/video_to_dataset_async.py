@@ -38,8 +38,7 @@ MODEL_NAME = "glm-4.6v"
 COORD_BASE = 1000  # GLM 输出坐标基数
 
 VIDEO_DIR = Path("raw_data/videos/clips")  # 默认查找切分后的片段
-TEMP_FRAMES_DIR = Path("temp_frames")
-OUTPUT_BASE = Path("output")
+DATASET_OUTPUT = Path("dataset_output")  # 直接输出到最终目录
 
 # 188 种交通标志候选库
 SIGNS_DIR = Path("raw_data/signs")
@@ -405,12 +404,13 @@ class AsyncDetector:
 # Step 1: 抽帧
 # ============================================================================
 
-def extract_frames(video_path: str, output_name: str, fps: int = 3) -> tuple:
-    """从视频抽帧
+def extract_frames(video_path: str, output_name: str, dataset_dir: Path, fps: int = 3) -> tuple:
+    """从视频抽帧，直接输出到 dataset 目录
     
     Args:
         video_path: 视频文件路径
-        output_name: 输出名称（用于命名帧和目录）
+        output_name: 输出名称（用于命名帧）
+        dataset_dir: 目标 dataset 目录
         fps: 抽帧率
     """
     video_path = Path(video_path)
@@ -419,15 +419,18 @@ def extract_frames(video_path: str, output_name: str, fps: int = 3) -> tuple:
         print(f"❌ 视频不存在: {video_path}")
         return None, 0
     
-    frames_dir = TEMP_FRAMES_DIR / output_name
+    frames_dir = dataset_dir / "frames"
     frames_dir.mkdir(parents=True, exist_ok=True)
     
-    # 清空旧帧
-    for old_frame in frames_dir.glob("*.jpg"):
-        old_frame.unlink()
+    # 检查是否已有帧（断点续传）
+    existing_frames = list(frames_dir.glob("*.jpg"))
+    if existing_frames:
+        print(f"\n📹 Step 1: 抽帧 (已存在 {len(existing_frames)} 帧，跳过)")
+        return frames_dir, len(existing_frames)
     
     print(f"\n📹 Step 1: 抽帧 ({fps} FPS)")
     print(f"   视频: {video_path}")
+    print(f"   目标: {frames_dir}")
     
     output_pattern = str(frames_dir / f"{output_name}_%06d.jpg")
     cmd = [
@@ -454,12 +457,13 @@ def extract_frames(video_path: str, output_name: str, fps: int = 3) -> tuple:
 
 async def run_labeling_async(
     frames_dir: Path, 
+    dataset_dir: Path,
     video_name: str, 
     workers: int,
     api_key: str,
     use_rag: bool = True
 ) -> Path:
-    """异步运行标注"""
+    """异步运行标注，直接输出到 dataset 目录"""
     rag_status = "✅ 启用" if use_rag else "❌ 禁用"
     print(f"\n🏷️ Step 2: 异步标注")
     print(f"   并发数: {workers} | 模式: asyncio + httpx | RAG: {rag_status}")
@@ -469,7 +473,7 @@ async def run_labeling_async(
         print("   ❌ 没有找到帧")
         return None
     
-    output_dir = OUTPUT_BASE / f"{video_name.lower()}_annotations"
+    output_dir = dataset_dir / "annotations"
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # 过滤已处理的（断点续传）
@@ -573,13 +577,13 @@ async def detect_and_save(
 # Step 3: 可视化
 # ============================================================================
 
-def generate_visualizations(frames_dir: Path, annotations_dir: Path, video_name: str) -> Path:
-    """生成可视化图片"""
+def generate_visualizations(frames_dir: Path, annotations_dir: Path, dataset_dir: Path) -> Path:
+    """生成可视化图片，直接输出到 dataset 目录"""
     from PIL import ImageDraw
     
     print(f"\n🎨 Step 3: 生成可视化")
     
-    vis_dir = OUTPUT_BASE / f"{video_name.lower()}_visualized"
+    vis_dir = dataset_dir / "visualized"
     vis_dir.mkdir(parents=True, exist_ok=True)
     
     count = 0
@@ -708,56 +712,36 @@ def create_summary_markdown(stats: dict, video_name: str, fps: int, elapsed_time
     return "\n".join(lines)
 
 
-def create_dataset(video_name: str, video_path: str, frames_dir: Path, annotations_dir: Path, vis_dir: Path, fps: int = 3, elapsed_time: float = None) -> Path:
-    """创建 Dataset 文件夹"""
+def finalize_dataset(video_name: str, video_path: str, dataset_dir: Path, fps: int = 3, elapsed_time: float = None) -> Path:
+    """生成报告并完成 Dataset（文件已直接生成到目录，无需复制）"""
     import shutil
     
-    print(f"\n📦 Step 4: 创建 Dataset")
+    print(f"\n📦 Step 4: 完成 Dataset")
     
-    output_base = Path("dataset_output")
-    output_base.mkdir(parents=True, exist_ok=True)
-    dataset_dir = output_base / f"{video_name}_dataset"
-    
-    # 清理旧的
-    if dataset_dir.exists():
-        shutil.rmtree(dataset_dir)
-    
-    (dataset_dir / "video").mkdir(parents=True, exist_ok=True)
-    (dataset_dir / "frames").mkdir(parents=True, exist_ok=True)
-    (dataset_dir / "annotations").mkdir(parents=True, exist_ok=True)
-    (dataset_dir / "visualized").mkdir(parents=True, exist_ok=True)
-    
-    # 复制视频
+    # 复制视频到 video 子目录
+    video_subdir = dataset_dir / "video"
+    video_subdir.mkdir(parents=True, exist_ok=True)
     video_src = Path(video_path)
-    if video_src.exists():
-        shutil.copy(video_src, dataset_dir / "video" / video_src.name)
+    video_dest = video_subdir / video_src.name
+    if video_src.exists() and not video_dest.exists():
+        shutil.copy(video_src, video_dest)
         print(f"   ✅ 复制视频")
     
-    # 复制帧
-    frame_count = 0
-    for frame in frames_dir.glob("*.jpg"):
-        shutil.copy(frame, dataset_dir / "frames" / frame.name)
-        frame_count += 1
-    print(f"   ✅ 复制 {frame_count} 帧")
+    # 统计已有文件
+    frames_dir = dataset_dir / "frames"
+    annotations_dir = dataset_dir / "annotations"
+    vis_dir = dataset_dir / "visualized"
     
-    # 复制标注
-    ann_count = 0
-    for ann in annotations_dir.glob("*.json"):
-        shutil.copy(ann, dataset_dir / "annotations" / ann.name)
-        ann_count += 1
-    print(f"   ✅ 复制 {ann_count} 标注")
+    frame_count = len(list(frames_dir.glob("*.jpg"))) if frames_dir.exists() else 0
+    ann_count = len(list(annotations_dir.glob("*.json"))) if annotations_dir.exists() else 0
+    vis_count = len(list(vis_dir.glob("*.jpg"))) if vis_dir.exists() else 0
     
-    # 复制可视化
-    if vis_dir and vis_dir.exists():
-        vis_count = 0
-        for vis in vis_dir.glob("*.jpg"):
-            shutil.copy(vis, dataset_dir / "visualized" / vis.name)
-            vis_count += 1
-        print(f"   ✅ 复制 {vis_count} 可视化")
+    print(f"   📊 帧: {frame_count} | 标注: {ann_count} | 可视化: {vis_count}")
     
     # 生成总结报告
     print(f"   📝 生成标注总结文档...")
-    stats = generate_summary(dataset_dir / "annotations", video_name, frame_count)
+    stats = generate_summary(annotations_dir, video_name, frame_count)
+    stats["processing_time"] = elapsed_time  # 记录处理时间
     summary_md = create_summary_markdown(stats, video_name, fps, elapsed_time)
     
     summary_path = dataset_dir / "SUMMARY.md"
@@ -773,15 +757,13 @@ def create_dataset(video_name: str, video_path: str, frames_dir: Path, annotatio
         "total_objects": stats["total_objects"],
         "categories": dict(stats["categories"]),
         "subcategories": dict(stats["subcategories"]),
-        "fps": fps
+        "fps": fps,
+        "processing_time": elapsed_time
     }
     stats_path = dataset_dir / "stats.json"
     with open(stats_path, "w", encoding="utf-8") as f:
         json.dump(stats_json, f, ensure_ascii=False, indent=2)
     print(f"   ✅ 生成 stats.json")
-    
-    # 注: 不再为每个片段单独生成 zip，统一在最后整合时生成
-    # 如需单独压缩，可运行: zip -r {video_name}_dataset.zip {video_name}_dataset
     
     return dataset_dir
 
@@ -791,12 +773,11 @@ def create_dataset(video_name: str, video_path: str, frames_dir: Path, annotatio
 # ============================================================================
 
 async def main_async():
-    parser = argparse.ArgumentParser(description="异步视频到数据集流水线")
+    parser = argparse.ArgumentParser(description="异步视频到数据集流水线（优化版：直接输出到最终目录）")
     parser.add_argument("--video", type=str, required=True, help="视频文件路径 (如 raw_data/videos/clips/D1/D1_000.mp4)")
     parser.add_argument("--name", type=str, default=None, help="输出名称 (默认使用视频文件名)")
     parser.add_argument("--fps", type=int, default=3, help="抽帧率 (默认 3)")
     parser.add_argument("--workers", type=int, default=15, help="并发数 (默认 15)")
-    parser.add_argument("--skip-extract", action="store_true", help="跳过抽帧")
     parser.add_argument("--skip-visualize", action="store_true", help="跳过可视化")
     parser.add_argument("--rag", action="store_true", default=True, help="启用 RAG 交通标志细粒度分类 (默认启用)")
     parser.add_argument("--no-rag", dest="rag", action="store_false", help="禁用 RAG 交通标志细粒度分类")
@@ -820,38 +801,38 @@ async def main_async():
         print(f"❌ 视频文件不存在: {video_path}")
         return
     
+    # 创建 dataset 目录（所有文件直接输出到这里）
+    dataset_dir = DATASET_OUTPUT / f"{output_name}_dataset"
+    dataset_dir.mkdir(parents=True, exist_ok=True)
+    
     print("=" * 70)
     print(f"🚀 异步视频标注流水线 - {output_name}")
     print(f"   视频: {video_path}")
-    print(f"   FPS: {args.fps} | 并发: {args.workers} | 模式: asyncio")
+    print(f"   输出: {dataset_dir}")
+    print(f"   FPS: {args.fps} | 并发: {args.workers} | 模式: asyncio (直接输出)")
     print("=" * 70)
     
     start_time = time.time()
     
-    # Step 1
-    if args.skip_extract:
-        frames_dir = TEMP_FRAMES_DIR / output_name
-        print(f"\n⏭️ 跳过抽帧，使用: {frames_dir}")
-    else:
-        frames_dir, _ = extract_frames(str(video_path), output_name, args.fps)
-        if not frames_dir:
-            return
+    # Step 1: 抽帧（直接到 dataset/frames）
+    frames_dir, _ = extract_frames(str(video_path), output_name, dataset_dir, args.fps)
+    if not frames_dir:
+        return
     
-    # Step 2
-    annotations_dir = await run_labeling_async(frames_dir, output_name, args.workers, api_key, use_rag=args.rag)
+    # Step 2: 标注（直接到 dataset/annotations）
+    annotations_dir = await run_labeling_async(frames_dir, dataset_dir, output_name, args.workers, api_key, use_rag=args.rag)
     if not annotations_dir:
         return
     
-    # Step 3
+    # Step 3: 可视化（直接到 dataset/visualized）
     if args.skip_visualize:
-        vis_dir = None
         print(f"\n⏭️ 跳过可视化")
     else:
-        vis_dir = generate_visualizations(frames_dir, annotations_dir, output_name)
+        generate_visualizations(frames_dir, annotations_dir, dataset_dir)
     
-    # Step 4
+    # Step 4: 生成报告
     total_time = time.time() - start_time
-    dataset_dir = create_dataset(output_name, str(video_path), frames_dir, annotations_dir, vis_dir, fps=args.fps, elapsed_time=total_time)
+    finalize_dataset(output_name, str(video_path), dataset_dir, fps=args.fps, elapsed_time=total_time)
     
     print("\n" + "=" * 70)
     print(f"🎉 完成！总耗时: {total_time/60:.1f} 分钟 ({total_time:.1f}秒)")
